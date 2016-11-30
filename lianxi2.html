@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	#wrap {
+		margin: 20px auto;
+		width: 600px;	
+	}
+	.clearfix {
+		zoom: 1;	
+	}
+	.clearfix:after {
+		content: "";
+		display: block;
+		clear: both;	
+	}
+	div {
+		width: 100%;	
+	}
+	mark {
+		margin: 0 4px;
+		border: 1px solid #999;		
+	}
+	.select a {
+		float: none;
+	}
+	span {
+		float: left;
+		height: 60px;
+		width: 100px;
+		font: bold 14px/20px "微软雅黑";	
+		text-align: center;
+	}
+	a {
+		float: left;
+		padding: 0 10px;
+		height: 20px;
+		font: 14px/20px "微软雅黑";
+		color: #000;
+		text-align: center;
+		text-decoration: none;	
+	}
+</style>
+<script>
+	window.onload = function(){
+		var wrap = document.getElementById("wrap");  //生成元素
+		var slct = document.querySelector(".select");
+		var div = wrap.getElementsByTagName("div");
+		var arr = [];    //创建一个空数组
+		for(var i = 1;i < div.length;i ++){
+			fn(div[i],i);	
+		}
+		function fn(obj,i){
+			var a = obj.getElementsByTagName("a");
+			for(var j = 0;j <a.length;j++){
+				/*obj.pId = -1;
+				a[j].pId = i*/
+				a[j].onclick = function(){
+					var text = this.innerHTML;   //找到a的innerHTML
+					var mark = document.createElement('mark');   //生成元素
+					var aX = document.createElement('a');
+					slct.innerHTML = '<span>你的选择：</span>';  //清空slct的所有innerHTML
+					aX.onclick = function(){
+						mark.parentNode.removeChild(mark);  //点差的时候，让当前元素关闭，并清空数组这一个的内容
+						arr[i-1] = '';
+					};
+					//slct.innerHTML += '<a href="javascript:;">'+text+' x</a>';
+					/*if(obj.pId == this.pId){
+						console.log('替换')
+						arr.splice(i-1,1,text);
+						arr[i-1] = text;	
+					}else{
+						console.log('生成')
+						arr.splice(i-1,1,text);
+						arr[i-1] = text;
+						obj.pId = i;
+					}*/
+					aX.innerHTML = "X";
+					aX.href = "javascript:;";
+					mark.innerHTML = text;  //把a 的innerHTML放入mark
+					mark.appendChild(aX);
+					arr[i-1] = mark;   //通过a 的父级,定数组的位数,让每个父级下的a，永远定位的都是数组的这一位
+					for(var n = 0;n < arr.length;n++){
+						if(arr[n]){
+							slct.appendChild(arr[n]);	//判断数组有的位数，数组里面存的是一个标签，直接放入slct
+						}
+					}
+					console.log(arr);
+				};
+			}
+		};
+	};
+</script>
+</head>
+<body>
+	<div id="wrap">
+    	<div class="select clearfix">
+        	<span>你的选择：</span>
+        </div>
+    	<div class="list1 clearfix">
+        	<span>品牌：</span>
+            <a href="javascript:;">小米</a>
+            <a href="javascript:;">苹果</a>
+            <a href="javascript:;">锤子</a>
+            <a href="javascript:;">三星</a>
+            <a href="javascript:;">华为</a>
+            <a href="javascript:;">联想</a>
+            <a href="javascript:;">中兴</a>
+            <a href="javascript:;">索尼</a>
+            <a href="javascript:;">oppo</a>
+            <a href="javascript:;">vivo</a>
+            <a href="javascript:;">魅族</a>
+            <a href="javascript:;">lG</a>
+        </div>
+        <div class="list2 clearfix">
+        	<span>价格：</span>
+            <a href="javascript:;">499以下</a>
+            <a href="javascript:;">500-999元</a>
+            <a href="javascript:;">1000-1999元</a>
+            <a href="javascript:;">2000-2999元</a>
+            <a href="javascript:;">3000-3999元</a>
+            <a href="javascript:;">4000-4999元</a>
+        </div>
+        <div class="list3 clearfix">
+        	<span>手机特色：</span>
+            <a href="javascript:;">学生机</a>
+            <a href="javascript:;">智能</a>
+            <a href="javascript:;">国产</a>
+            <a href="javascript:;">千元机</a>
+            <a href="javascript:;">商务</a>
+            <a href="javascript:;">天翼</a>
+            <a href="javascript:;">看电影</a>
+            <a href="javascript:;">老人机</a>
+            <a href="javascript:;">百元</a>
+        </div>
+        <div class="list4 clearfix">
+        	<span>手机配置：</span>
+            <a href="javascript:;">电信3G</a>
+            <a href="javascript:;">双核</a>
+            <a href="javascript:;">拍照</a>
+            <a href="javascript:;">四核</a>
+            <a href="javascript:;">双3G</a>
+            <a href="javascript:;">移动3G</a>
+            <a href="javascript:;">WP8</a>
+            <a href="javascript:;">高清</a>
+            <a href="javascript:;">1080高清</a>
+            <a href="javascript:;">2K</a>
+        </div>
+    </div>
+</body>
+</html>
